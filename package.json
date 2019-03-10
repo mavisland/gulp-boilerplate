@@ -1,0 +1,26 @@
+{
+  "name": "gulp-boilerplate",
+  "version": "1.0.0",
+  "description": "Gulp boilerplate for web projects",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mavisland/gulp-boilerplate.git"
+  },
+  "keywords": [
+    "gulpjs",
+    "boilerplate"
+  ],
+  "author": {
+    "name": "Tanju Yildiz",
+    "url": "https://tanjuyildiz.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mavisland/gulp-boilerplate/issues"
+  },
+  "homepage": "https://github.com/mavisland/gulp-boilerplate#readme"
+}
