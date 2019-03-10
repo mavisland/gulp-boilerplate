@@ -11,6 +11,7 @@ A boilerplate for building web projects with [Gulp](https://gulpjs.com/) 4.x.
 - Render Nunjucks templates.
 - Optimise GIF, JPEG, PNG and SVG images.
 - Publish your project to [surge.sh](https://surge.sh/)
+- Archive `dist` content
 - Watch for file changes, and automatically recompile build and reload webpages.
 
 ### Quick Start
@@ -66,6 +67,7 @@ Place GIF, JPG, PNG and SVG images in the `src/images` directory. Images will be
 
 | Task Name | Task Decription                          |
 | --------- | ---------------------------------------- |
+| archive   | Archive `dist` content                   |
 | build     | Run all tasks                            |
 | images    | Optimise GIF, JPEG, PNG and SVG images   |
 | serve     | Watch for changes to the `src` directory |
@@ -81,6 +83,13 @@ Adjust the `input`, `output`, `watch` paths for all of the Gulp tasks under the 
 ```js
 // Paths
 const paths = {
+  archive: {
+    input: 'dist/**',
+    output: 'build/'
+  },
+  deploy: {
+    root: 'dist/'
+  },
   images: {
     input: 'src/images/**/*.{gif,jpg,png,svg}',
     output: 'dist/images/',

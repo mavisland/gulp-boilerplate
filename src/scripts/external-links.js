@@ -1,5 +1,3 @@
-console.log('Gulp Boilerplate is working.')
-
 // Works like jQuery's $(document).ready.
 // Supports IE8+. Courtesy of http://youmightnotneedjquery.com/
 function ready(fn) {
@@ -36,5 +34,3 @@ ready(function() {
     }
   }
 })
-
-console.log('Hello World!')

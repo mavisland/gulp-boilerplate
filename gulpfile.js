@@ -2,6 +2,7 @@
 
 // Packages
 const gulp = require('gulp')
+const archiver = require('gulp-archiver')
 const autoprefixer = require('gulp-autoprefixer')
 const browserSync = require('browser-sync').create()
 const cssnano = require('gulp-cssnano')
@@ -19,6 +20,10 @@ const uglify = require('gulp-uglify')
 
 // Paths
 const paths = {
+  archive: {
+    input: 'dist/**',
+    output: 'build/'
+  },
   deploy: {
     root: 'dist/'
   },
@@ -47,8 +52,24 @@ const paths = {
   }
 }
 
+// Get Timestamp
+const getTimestamp = () => {
+  let date = new Date()
+
+  let dateYear = date.getFullYear().toString()
+  let dateMonth = ('0' + (date.getMonth() + 1)).slice(-2)
+  let dateDay = ('0' + date.getDate()).slice(-2)
+  let timeHour = date.getHours().toString()
+  let timeMinute = date.getMinutes().toString()
+  let timeSecond = date.getSeconds().toString()
+
+  return (
+    dateYear + dateMonth + dateDay + '-' + timeHour + timeMinute + timeSecond
+  )
+}
+
 // On Error Configuration
-const onError = function(err) {
+const onError = err => {
   notify.onError({
     title: 'Gulp',
     subtitle: 'Failure!',
@@ -61,6 +82,30 @@ const onError = function(err) {
 //
 // TASKS
 //
+
+/**
+ * Task: 'archive'
+ *
+ * Archive pre-existing content from output folders
+ */
+gulp.task(
+  'archive',
+  gulp.series(done => {
+    gulp
+      .src(paths.archive.input)
+      .pipe(archiver(pkg.name + '_build_' + getTimestamp() + '.zip'))
+      .pipe(gulp.dest(paths.archive.output))
+      .pipe(
+        notify({
+          message: 'TASK: "archive" Completed! 💯',
+          onLast: true
+        })
+      )
+
+    // Signal completion
+    done()
+  })
+)
 
 /**
  * Task: 'clean'
