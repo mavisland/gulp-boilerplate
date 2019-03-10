@@ -1,0 +1,21 @@
+// Base
+// ----------------------------------------------------------------------------
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+}
+
+body {
+  background-color: $body-bg-color;
+  box-sizing: border-box;
+  color: $body-text-color;
+}
