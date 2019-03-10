@@ -3,6 +3,7 @@
 // Packages
 const gulp = require('gulp')
 const autoprefixer = require('gulp-autoprefixer')
+const browserSync = require('browser-sync').create()
 const cssnano = require('gulp-cssnano')
 const concat = require('gulp-concat')
 const del = require('del')
@@ -29,6 +30,9 @@ const paths = {
     input: ['src/templates/*.njk', '!src/templates/_*.njk'],
     output: 'dist/',
     watch: 'src/templates/**/*.njk'
+  },
+  server: {
+    root: 'dist/'
   }
 }
 
@@ -92,6 +96,7 @@ gulp.task(
         })
       )
       .pipe(gulp.dest(paths.styles.output))
+      .pipe(browserSync.reload({ stream: true }))
       .pipe(
         notify({
           message: 'TASK: "styles" Completed! 💯',
@@ -128,6 +133,7 @@ gulp.task(
         })
       )
       .pipe(gulp.dest(paths.scripts.output))
+      .pipe(browserSync.reload({ stream: true }))
       .pipe(
         notify({
           message: 'TASK: "scripts" Completed! 💯',
@@ -156,6 +162,7 @@ gulp.task(
         })
       )
       .pipe(gulp.dest(paths.templates.output))
+      .pipe(browserSync.reload({ stream: true }))
       .pipe(
         notify({
           message: 'TASK: "templates" Completed! 💯',
@@ -171,6 +178,25 @@ gulp.task(
 // Build
 gulp.task('build', gulp.series(['styles', 'scripts', 'templates']))
 
+/**
+ * Task: 'serve'
+ *
+ * Watch for changes to the src directory
+ */
+gulp.task(
+  'serve',
+  gulp.series(done => {
+    browserSync.init({
+      server: {
+        baseDir: paths.server.root
+      }
+    })
+
+    // Signal completion
+    done()
+  })
+)
+
 // Watch
 gulp.task('watch', () => {
   gulp.watch(paths.styles.watch, gulp.series('styles'))
@@ -179,4 +205,7 @@ gulp.task('watch', () => {
 })
 
 // Default
-gulp.task('default', gulp.series(['clean', 'build', 'watch']))
+gulp.task(
+  'default',
+  gulp.series(['clean', 'build', gulp.parallel('watch', 'serve')])
+)
