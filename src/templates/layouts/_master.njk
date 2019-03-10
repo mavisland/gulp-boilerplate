@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Gulp Boilerplate</title>
+    <meta name="author" content="Tanju Yildiz">
+    <meta name="description" content="A boilerplate for building web projects with Gulp 4.x.">
+    <meta name="keywords" content="gulpjs,boilerplate">
+    <link rel="stylesheet" href="css/style.min.css">
+</head>
+<body>
+{% include "partials/_header.njk" %}
+    <main class="content">
+{% block content %} {% endblock %}
+    </main><!-- .content -->
+{% include "partials/_footer.njk" %}
+    <script src="js/scripts.min.js"></script>
+</body>
+</html>

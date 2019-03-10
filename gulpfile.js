@@ -7,6 +7,7 @@ const cssnano = require('gulp-cssnano')
 const concat = require('gulp-concat')
 const del = require('del')
 const notify = require('gulp-notify')
+const nunjucks = require('gulp-nunjucks-render')
 const plumber = require('gulp-plumber')
 const rename = require('gulp-rename')
 const sass = require('gulp-sass')
@@ -23,6 +24,11 @@ const paths = {
     input: 'src/scripts/*.js',
     output: 'dist/js/',
     watch: 'src/scripts/**/*.js'
+  },
+  templates: {
+    input: ['src/templates/*.njk', '!src/templates/_*.njk'],
+    output: 'dist/',
+    watch: 'src/templates/**/*.njk'
   }
 }
 
@@ -68,14 +74,9 @@ gulp.task(
     gulp
       .src(paths.styles.input)
       .pipe(
-        plumber({
-          errorHandler: onError
-        })
-      )
-      .pipe(
         sass({
           outputStyle: 'expanded'
-        })
+        }).on('error', onError)
       )
       .pipe(
         autoprefixer({
@@ -91,6 +92,12 @@ gulp.task(
         })
       )
       .pipe(gulp.dest(paths.styles.output))
+      .pipe(
+        notify({
+          message: 'TASK: "styles" Completed! 💯',
+          onLast: true
+        })
+      )
 
     // Signal completion
     done()
@@ -121,6 +128,40 @@ gulp.task(
         })
       )
       .pipe(gulp.dest(paths.scripts.output))
+      .pipe(
+        notify({
+          message: 'TASK: "scripts" Completed! 💯',
+          onLast: true
+        })
+      )
+
+    // Signal completion
+    done()
+  })
+)
+
+/**
+ * Task: 'templates'
+ *
+ * Compile Nunjucks files to HTML
+ */
+gulp.task(
+  'templates',
+  gulp.series(done => {
+    gulp
+      .src(paths.templates.input)
+      .pipe(
+        nunjucks({
+          path: ['src/templates']
+        })
+      )
+      .pipe(gulp.dest(paths.templates.output))
+      .pipe(
+        notify({
+          message: 'TASK: "templates" Completed! 💯',
+          onLast: true
+        })
+      )
 
     // Signal completion
     done()
@@ -128,12 +169,13 @@ gulp.task(
 )
 
 // Build
-gulp.task('build', gulp.series(['styles', 'scripts']))
+gulp.task('build', gulp.series(['styles', 'scripts', 'templates']))
 
 // Watch
 gulp.task('watch', () => {
   gulp.watch(paths.styles.watch, gulp.series('styles'))
   gulp.watch(paths.scripts.watch, gulp.series('scripts'))
+  gulp.watch(paths.templates.watch, gulp.series('templates'))
 })
 
 // Default

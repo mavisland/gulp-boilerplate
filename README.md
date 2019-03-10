@@ -8,6 +8,7 @@ A boilerplate for building web projects with [Gulp](https://gulpjs.com/) 4.x.
 
 - Compile, minify, autoprefix SASS files.
 - Concatenate and minify JavaScript.
+- Render Nunjucks templates.
 - Watch for file changes, and automatically recompile build.
 
 ### Quick Start
@@ -49,6 +50,10 @@ Files in the `src/styles` directory will be compiled to `dist/css`.
 
 Put your JavaScript files in the `src/scripts` directory. Files placed directly in the `src/scripts` folder will compile directly to `dist/js` as both minified and unminified files.
 
+### Templates
+
+Put your Nunjucks templates in the `src/templates` directory. Files placed directly in the `src/templates` folder will compile directly to `dist`.
+
 ## Options
 
 ### Paths
@@ -67,6 +72,11 @@ const paths = {
     input: 'src/scripts/*.js',
     output: 'dist/js/',
     watch: 'src/scripts/**/*.js'
+  },
+  templates: {
+    input: ['src/templates/*.njk', '!src/templates/_*.njk'],
+    output: 'dist/',
+    watch: 'src/templates/**/*.njk'
   }
 }
 ```
