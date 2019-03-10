@@ -7,6 +7,7 @@ A boilerplate for building web projects with [Gulp](https://gulpjs.com/) 4.x.
 ### Features
 
 - Compile, minify, autoprefix SASS files.
+- Concatenate and minify JavaScript.
 - Watch for file changes, and automatically recompile build.
 
 ### Quick Start
@@ -44,6 +45,10 @@ Add your source files to the appropriate `src` subdirectories. Gulp will process
 
 Files in the `src/styles` directory will be compiled to `dist/css`.
 
+### Scripts
+
+Put your JavaScript files in the `src/scripts` directory. Files placed directly in the `src/scripts` folder will compile directly to `dist/js` as both minified and unminified files.
+
 ## Options
 
 ### Paths
@@ -51,15 +56,17 @@ Files in the `src/styles` directory will be compiled to `dist/css`.
 Adjust the `input`, `output`, `watch` paths for all of the Gulp tasks under the `paths` variable. Paths are relative to the root project folder.
 
 ```js
-/**
- * Paths to project folders
- */
 // Paths
 const paths = {
   styles: {
-    input: 'src/styles/style.scss',
-    output: 'dist/css/style.css',
+    input: 'src/styles/*.scss',
+    output: 'dist/css/',
     watch: 'src/styles/**/*.scss'
+  },
+  scripts: {
+    input: 'src/scripts/*.js',
+    output: 'dist/js/',
+    watch: 'src/scripts/**/*.js'
   }
 }
 ```
