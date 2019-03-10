@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/mavisland/gulp-boilerplate#readme",
   "devDependencies": {
+    "del": "^4.0.0",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-concat": "^2.6.1",
