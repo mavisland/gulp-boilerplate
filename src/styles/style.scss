@@ -5,10 +5,22 @@
 @import 'abstracts/mixins';
 @import 'abstracts/variables';
 
+// Mixins
+@import 'mixins/all';
+
 // Base
 @import 'base/base';
 @import 'base/typography';
 
+// Components
+@import 'components/grid';
+
 // Partials
 @import 'partials/header';
 @import 'partials/footer';
+
+// Layouts
+@import 'layouts/content';
+
+// Pages
+@import 'pages/index';

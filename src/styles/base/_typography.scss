@@ -6,3 +6,14 @@ body {
   font-size: $font-size;
   line-height: $font-line-height;
 }
+
+a {
+  color: #cf4647;
+  text-decoration: none;
+  transition: all 0.2s;
+
+  @include hover-focus {
+    color: darken(#cf4647, 0);
+    text-decoration: underline;
+  }
+}

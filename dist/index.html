@@ -16,28 +16,159 @@
         <div class="wrapper">
             <nav class="navbar">
                 <a href="index.html" class="logo">Gulp Boilerplate</a>
-                <ul class="menu">
-                    <li class="menu-item"><a href="index.html">Home</a></li>
-                    <li class="menu-item"><a href="index.html">Sample Page</a></li>
-                    <li class="menu-item"><a href="index.html">Documentation</a></li>
-                </ul>
+                <div class="menu-wrapper">
+                    <ul class="menu">
+                        <li class="menu-item"><a href="https://github.com/mavisland/gulp-boilerplate">Source Code</a></li>
+                    </ul>
+                </div>
             </nav>
         </div>
     </header><!-- .header -->
 
     <main class="content">
 
+        <section class="hero">
+            <div class="hero-body">
+                <div class="wrapper">
+                    <h1 class="hero-title">Gulp Boilerplate</h1>
+                    <p class="hero-subtitle">A boilerplate for building web projects with Gulp 4.x.</p>
+                </div>
+            </div>
+        </section>
         <section class="section">
             <div class="wrapper">
-                <h1>Gulp Boilerplate</h1>
-                <p class="lead">A boilerplate for building web projects with Gulp 4.x.</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto explicabo laborum obcaecati, aliquid, veritatis minima unde quos labore voluptatem reiciendis quod ex officiis? Atque rem, saepe in rerum quasi nemo.</p>
+                <div class="row">
+                    <div class="column">
+                        <article class="markdown-content">
+                            <h2>Getting Started</h2>
+                            <h3>Features</h3>
+                            <ul>
+                                <li>Compile, minify, autoprefix SASS files.</li>
+                                <li>Concatenate and minify JavaScript.</li>
+                                <li>Render Nunjucks templates.</li>
+                                <li>Optimise GIF, JPEG, PNG and SVG images.</li>
+                                <li>Watch for file changes, and automatically recompile build and reload webpages.</li>
+                            </ul>
+                            <h3>Quick Start</h3>
+                            <pre><code>
+# 1 Clone this repo
+git clone https://github.com/mavisland/gulp-boilerplate.git
+
+# 2 Navigate into the repo directory
+cd gulp-boilerplate
+
+# 3 Install all node packages
+npm install
+
+# 4 Get started
+npm run start
+                            </code></pre>
+                            <h3>Requirements</h3>
+                            <p>This project requires you have <a href="https://nodejs.org/en/" rel="nofollow">nodejs</a> with <a href="https://www.npmjs.com/get-npm" rel="nofollow">npm</a> installed. This project requires you have a global installation of <a href="http://gulpjs.com/" rel="nofollow">gulp</a>.</p>
+                            <pre><code>
+# Install gulp globally
+npm install -g gulp
+npm install -g gulp-cli
+                            </code></pre>
+                            <h2>Documentation</h2>
+                            <p>Add your source files to the appropriate <code>src</code> subdirectories. Gulp will process and and compile them into <code>dist</code>.</p>
+                            <h3>Styles</h3>
+                            <p>Files in the <code>src/styles</code> directory will be compiled to <code>dist/css</code>.</p>
+                            <h3>Scripts</h3>
+                            <p>Put your JavaScript files in the <code>src/scripts</code> directory. Files placed directly in the <code>src/scripts</code> folder will compile directly to <code>dist/js</code> as both minified and unminified files.</p>
+                            <h3>Templates</h3>
+                            <p>Put your Nunjucks templates in the <code>src/templates</code> directory. Files placed directly in the <code>src/templates</code> folder will compile directly to <code>dist</code>.</p>
+                            <h3>Images</h3>
+                            <p>Place GIF, JPG, PNG and SVG images in the <code>src/images</code> directory. Images will be optimized with <code>imagemin</code> plugins and compiled into <code>dist/images</code>.</p>
+                            <h2>Options</h2>
+                            <h3>Tasks</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Task Name</th>
+                                        <th>Task Decription</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>build</td>
+                                        <td>Run all tasks</td>
+                                    </tr>
+                                    <tr>
+                                        <td>images</td>
+                                        <td>Optimise GIF, JPEG, PNG and SVG images</td>
+                                    </tr>
+                                    <tr>
+                                        <td>serve</td>
+                                        <td>Watch for changes to the <code>src</code> directory</td>
+                                    </tr>
+                                    <tr>
+                                        <td>scripts</td>
+                                        <td>Concanate &amp; minify JavaScript files</td>
+                                    </tr>
+                                    <tr>
+                                        <td>styles</td>
+                                        <td>Compile, autoprefix &amp; minify SASS files</td>
+                                    </tr>
+                                    <tr>
+                                        <td>templates</td>
+                                        <td>Render Nunjucks templates</td>
+                                    </tr>
+                                    <tr>
+                                        <td>watch</td>
+                                        <td>Watch all file changes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h3>Paths</h3>
+                            <p>Adjust the <code>input</code>, <code>output</code>, <code>watch</code> paths for all of the Gulp tasks under the <code>paths</code> variable. Paths are relative to the root project folder.</p>
+                            <div class="highlight highlight-source-js">
+                                <pre>
+<span class="pl-c"><span class="pl-c">//</span> Paths</span>
+<span class="pl-k">const</span> <span class="pl-c1">paths</span> <span class="pl-k">=</span> {
+  images<span class="pl-k">:</span> {
+    input<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>src/images/**/*.{gif,jpg,png,svg}<span class="pl-pds">'</span></span>,
+    output<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>dist/images/<span class="pl-pds">'</span></span>,
+    watch<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>src/images/**/*.{gif,jpg,png,svg}<span class="pl-pds">'</span></span>
+  },
+  server<span class="pl-k">:</span> {
+    root<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>dist/<span class="pl-pds">'</span></span>
+  },
+  scripts<span class="pl-k">:</span> {
+    input<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>src/scripts/*.js<span class="pl-pds">'</span></span>,
+    output<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>dist/js/<span class="pl-pds">'</span></span>,
+    watch<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>src/scripts/**/*.js<span class="pl-pds">'</span></span>
+  },
+  styles<span class="pl-k">:</span> {
+    input<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>src/styles/*.scss<span class="pl-pds">'</span></span>,
+    output<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>dist/css/<span class="pl-pds">'</span></span>,
+    watch<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>src/styles/**/*.scss<span class="pl-pds">'</span></span>
+  },
+  templates<span class="pl-k">:</span> {
+    input<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>src/templates/*.njk<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>!src/templates/_*.njk<span class="pl-pds">'</span></span>],
+    output<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>dist/<span class="pl-pds">'</span></span>,
+    watch<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>src/templates/**/*.njk<span class="pl-pds">'</span></span>
+  }
+}
+                                </pre>
+                            </div>
+                            <h2>License</h2>
+                            <p>The code is available under the <a href="/mavisland/gulp-boilerplate/blob/master/LICENSE.md">MIT License</a>.</p>
+                        </article>
+                    </div>
+                </div>
             </div>
         </section><!-- .section -->
 
     </main><!-- .content -->
     <footer class="footer">
-        <div class="wrapper"></div>
+        <div class="wrapper">
+            <div class="row">
+                <div class="column text-center">
+                    <p>Developed with ❤️ using <a href="https://gulpjs.scom">gulpjs</a> by <a href="https://github.com/mavisland/">Tanju Yıldız</a></p>
+                </div>
+            </div>
+        </div>
     </footer><!-- .footer -->
 
     <script src="js/scripts.min.js"></script>
