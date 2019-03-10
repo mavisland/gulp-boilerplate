@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/mavisland/gulp-boilerplate/issues"
   },
-  "homepage": "https://github.com/mavisland/gulp-boilerplate#readme"
+  "homepage": "https://github.com/mavisland/gulp-boilerplate#readme",
+  "devDependencies": {
+    "gulp": "^4.0.0"
+  }
 }
