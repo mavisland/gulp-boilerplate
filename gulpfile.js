@@ -7,6 +7,7 @@ const browserSync = require('browser-sync').create()
 const cssnano = require('gulp-cssnano')
 const concat = require('gulp-concat')
 const del = require('del')
+const imagemin = require('gulp-imagemin')
 const notify = require('gulp-notify')
 const nunjucks = require('gulp-nunjucks-render')
 const plumber = require('gulp-plumber')
@@ -16,23 +17,28 @@ const uglify = require('gulp-uglify')
 
 // Paths
 const paths = {
-  styles: {
-    input: 'src/styles/*.scss',
-    output: 'dist/css/',
-    watch: 'src/styles/**/*.scss'
+  images: {
+    input: 'src/images/**/*.{gif,jpg,png,svg}',
+    output: 'dist/images/',
+    watch: 'src/images/**/*.{gif,jpg,png,svg}'
+  },
+  server: {
+    root: 'dist/'
   },
   scripts: {
     input: 'src/scripts/*.js',
     output: 'dist/js/',
     watch: 'src/scripts/**/*.js'
   },
+  styles: {
+    input: 'src/styles/*.scss',
+    output: 'dist/css/',
+    watch: 'src/styles/**/*.scss'
+  },
   templates: {
     input: ['src/templates/*.njk', '!src/templates/_*.njk'],
     output: 'dist/',
     watch: 'src/templates/**/*.njk'
-  },
-  server: {
-    root: 'dist/'
   }
 }
 
@@ -68,38 +74,32 @@ gulp.task(
 )
 
 /**
- * Task: 'styles'
+ * Task: 'images'
  *
- * Compile, autoprefix  & minify SASS files
+ * Optimise GIF, JPEG, PNG and SVG images
  */
 gulp.task(
-  'styles',
+  'images',
   gulp.series(done => {
     gulp
-      .src(paths.styles.input)
+      .src(paths.images.input)
       .pipe(
-        sass({
-          outputStyle: 'expanded'
-        }).on('error', onError)
-      )
-      .pipe(
-        autoprefixer({
-          browsers: ['last 2 versions'],
-          cascade: false
+        imagemin({
+          interlaced: true,
+          progressive: true,
+          optimizationLevel: 5,
+          svgoPlugins: [
+            {
+              removeViewBox: true
+            }
+          ]
         })
       )
-      .pipe(gulp.dest(paths.styles.output))
-      .pipe(cssnano())
-      .pipe(
-        rename({
-          suffix: '.min'
-        })
-      )
-      .pipe(gulp.dest(paths.styles.output))
+      .pipe(gulp.dest(paths.images.output))
       .pipe(browserSync.reload({ stream: true }))
       .pipe(
         notify({
-          message: 'TASK: "styles" Completed! 💯',
+          message: 'TASK: "images" Completed! 💯',
           onLast: true
         })
       )
@@ -147,6 +147,48 @@ gulp.task(
 )
 
 /**
+ * Task: 'styles'
+ *
+ * Compile, autoprefix & minify SASS files
+ */
+gulp.task(
+  'styles',
+  gulp.series(done => {
+    gulp
+      .src(paths.styles.input)
+      .pipe(
+        sass({
+          outputStyle: 'expanded'
+        }).on('error', onError)
+      )
+      .pipe(
+        autoprefixer({
+          browsers: ['last 2 versions'],
+          cascade: false
+        })
+      )
+      .pipe(gulp.dest(paths.styles.output))
+      .pipe(cssnano())
+      .pipe(
+        rename({
+          suffix: '.min'
+        })
+      )
+      .pipe(gulp.dest(paths.styles.output))
+      .pipe(browserSync.reload({ stream: true }))
+      .pipe(
+        notify({
+          message: 'TASK: "styles" Completed! 💯',
+          onLast: true
+        })
+      )
+
+    // Signal completion
+    done()
+  })
+)
+
+/**
  * Task: 'templates'
  *
  * Compile Nunjucks files to HTML
@@ -175,13 +217,17 @@ gulp.task(
   })
 )
 
-// Build
-gulp.task('build', gulp.series(['styles', 'scripts', 'templates']))
+/**
+ * Task: 'build'
+ *
+ * Run all tasks
+ */
+gulp.task('build', gulp.series(['images', 'styles', 'scripts', 'templates']))
 
 /**
  * Task: 'serve'
  *
- * Watch for changes to the src directory
+ * Watch for changes to the `src` directory
  */
 gulp.task(
   'serve',
@@ -197,7 +243,11 @@ gulp.task(
   })
 )
 
-// Watch
+/**
+ * Task: 'watch'
+ *
+ * Watch all file changes
+ */
 gulp.task('watch', () => {
   gulp.watch(paths.styles.watch, gulp.series('styles'))
   gulp.watch(paths.scripts.watch, gulp.series('scripts'))

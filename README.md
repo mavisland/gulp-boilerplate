@@ -9,7 +9,8 @@ A boilerplate for building web projects with [Gulp](https://gulpjs.com/) 4.x.
 - Compile, minify, autoprefix SASS files.
 - Concatenate and minify JavaScript.
 - Render Nunjucks templates.
-- Watch for file changes, and automatically recompile build.
+- Optimise GIF, JPEG, PNG and SVG images.
+- Watch for file changes, and automatically recompile build and reload webpages.
 
 ### Quick Start
 
@@ -24,7 +25,7 @@ cd gulp-boilerplate
 npm install
 
 # 4 Get started
-gulp
+npm run start
 ```
 
 ### Requirements
@@ -54,7 +55,23 @@ Put your JavaScript files in the `src/scripts` directory. Files placed directly 
 
 Put your Nunjucks templates in the `src/templates` directory. Files placed directly in the `src/templates` folder will compile directly to `dist`.
 
+### Images
+
+Place GIF, JPG, PNG and SVG images in the `src/images` directory. Images will be optimized with `imagemin` plugins and compiled into `dist/images`.
+
 ## Options
+
+### Tasks
+
+| Task Name | Task Decription                          |
+| --------- | ---------------------------------------- |
+| build     | Run all tasks                            |
+| images    | Optimise GIF, JPEG, PNG and SVG images   |
+| serve     | Watch for changes to the `src` directory |
+| scripts   | Concanate & minify JavaScript files      |
+| styles    | Compile, autoprefix & minify SASS files  |
+| templates | Render Nunjucks templates                |
+| watch     | Watch all file changes                   |
 
 ### Paths
 
@@ -63,15 +80,23 @@ Adjust the `input`, `output`, `watch` paths for all of the Gulp tasks under the 
 ```js
 // Paths
 const paths = {
-  styles: {
-    input: 'src/styles/*.scss',
-    output: 'dist/css/',
-    watch: 'src/styles/**/*.scss'
+  images: {
+    input: 'src/images/**/*.{gif,jpg,png,svg}',
+    output: 'dist/images/',
+    watch: 'src/images/**/*.{gif,jpg,png,svg}'
+  },
+  server: {
+    root: 'dist/'
   },
   scripts: {
     input: 'src/scripts/*.js',
     output: 'dist/js/',
     watch: 'src/scripts/**/*.js'
+  },
+  styles: {
+    input: 'src/styles/*.scss',
+    output: 'dist/css/',
+    watch: 'src/styles/**/*.scss'
   },
   templates: {
     input: ['src/templates/*.njk', '!src/templates/_*.njk'],
