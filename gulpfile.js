@@ -10,13 +10,18 @@ const del = require('del')
 const imagemin = require('gulp-imagemin')
 const notify = require('gulp-notify')
 const nunjucks = require('gulp-nunjucks-render')
+const pkg = require('./package.json')
 const plumber = require('gulp-plumber')
 const rename = require('gulp-rename')
 const sass = require('gulp-sass')
+const surge = require('gulp-surge')
 const uglify = require('gulp-uglify')
 
 // Paths
 const paths = {
+  deploy: {
+    root: 'dist/'
+  },
   images: {
     input: 'src/images/**/*.{gif,jpg,png,svg}',
     output: 'dist/images/',
@@ -67,6 +72,25 @@ gulp.task(
   gulp.series(done => {
     // Clean the dist folder
     del.sync(['dist/'])
+
+    // Signal completion
+    done()
+  })
+)
+
+/**
+ * Task: 'deploy'
+ *
+ * Publish your project to Surge.sh
+ * For more information: https://surge.sh
+ */
+gulp.task(
+  'deploy',
+  gulp.series(done => {
+    surge({
+      project: paths.deploy.root,
+      domain: pkg.name + '.surge.sh'
+    })
 
     // Signal completion
     done()

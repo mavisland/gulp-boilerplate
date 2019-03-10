@@ -10,6 +10,7 @@ A boilerplate for building web projects with [Gulp](https://gulpjs.com/) 4.x.
 - Concatenate and minify JavaScript.
 - Render Nunjucks templates.
 - Optimise GIF, JPEG, PNG and SVG images.
+- Publish your project to [surge.sh](https://surge.sh/)
 - Watch for file changes, and automatically recompile build and reload webpages.
 
 ### Quick Start
