@@ -29,7 +29,7 @@
   "homepage": "https://github.com/mavisland/gulp-boilerplate#readme",
   "devDependencies": {
     "browser-sync": "^2.26.7",
-    "del": "^4.0.0",
+    "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-archiver": "^1.0.0",
     "gulp-autoprefixer": "^7.0.1",
