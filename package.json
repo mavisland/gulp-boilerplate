@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/mavisland/gulp-boilerplate#readme",
   "devDependencies": {
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.26.14",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-archiver": "^1.0.0",
