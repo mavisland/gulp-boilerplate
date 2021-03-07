@@ -1,6 +1,6 @@
 {
   "name": "gulp-boilerplate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Gulp boilerplate for web projects",
   "main": "index.js",
   "scripts": {
