@@ -1,3 +1,5 @@
+[❌DEPRECATED! Alternatively, you can use [Boilerplate](https://github.com/mavisland/boilerplate).]
+
 # gulp-boilerplate
 
 A boilerplate for building web projects with [Gulp](https://gulpjs.com/) 4.x.
